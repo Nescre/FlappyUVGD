@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://co0ss4chk2r62"]
+
+[ext_resource type="Script" path="res://Birdman.gd" id="1_a8c7s"]
+[ext_resource type="Texture2D" uid="uid://dol8kyg63aqsu" path="res://bird.png" id="2_fi6hc"]
+[ext_resource type="AudioStream" uid="uid://dysqustrovhpc" path="res://quick-swhooshing-noise-80898.mp3" id="3_h8pet"]
+[ext_resource type="AudioStream" uid="uid://bghjeaq1k2h3n" path="res://explosion-42132.mp3" id="4_fxbpd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idulr"]
+size = Vector2(45.2427, 75.5349)
+
+[node name="Birdman" type="CharacterBody2D"]
+position = Vector2(551, 304)
+scale = Vector2(0.480384, 0.430591)
+script = ExtResource("1_a8c7s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.04088, -1.16124)
+scale = Vector2(0.17388, 0.215036)
+texture = ExtResource("2_fi6hc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.08167, -1.16138)
+scale = Vector2(2.4846, -1.1376)
+shape = SubResource("RectangleShape2D_idulr")
+
+[node name="wingflap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_h8pet")
+
+[node name="deadnoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_fxbpd")
+volume_db = 5.0

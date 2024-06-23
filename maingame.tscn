@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dq1uwpttkwqb8"]
+
+[ext_resource type="Script" path="res://maingame.gd" id="1_n73d2"]
+[ext_resource type="PackedScene" uid="uid://bunwqlp1e7xfl" path="res://reloadables.tscn" id="2_o3dln"]
+[ext_resource type="Script" path="res://voidout.gd" id="5_uhku7"]
+[ext_resource type="Texture2D" uid="uid://gkc77kqy5kgu" path="res://istockphoto-1138179296-612x612.jpg" id="6_3osk6"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="6_pfkxo"]
+[ext_resource type="Texture2D" uid="uid://6r3w2af3roln" path="res://A_black_image.jpg" id="7_yasjc"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_n73d2")
+
+[node name="reloadables" parent="." instance=ExtResource("2_o3dln")]
+scale = Vector2(0.999105, 1)
+
+[node name="sky background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(578.5, 307.5)
+scale = Vector2(2.13431, 2.36409)
+texture = ExtResource("6_3osk6")
+
+[node name="voidout" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+position = Vector2(668, 347)
+texture = ExtResource("7_yasjc")
+script = ExtResource("5_uhku7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("6_pfkxo")
+
+[node name="shake" type="Timer" parent="Camera2D"]
+wait_time = 0.025
+
+[connection signal="timeout" from="Camera2D/shake" to="Camera2D" method="_on_shake_timeout"]

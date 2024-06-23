@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://bunwqlp1e7xfl"]
+
+[ext_resource type="Script" path="res://Floor1.gd" id="1_geqdi"]
+[ext_resource type="Texture2D" uid="uid://c5pa1wh26x41l" path="res://pngtree-grass-texture-with-simple-soil-and-stone-vector-png-image_6627616.png" id="2_cp23e"]
+[ext_resource type="Script" path="res://Floor2.gd" id="3_6wxl6"]
+[ext_resource type="PackedScene" uid="uid://co0ss4chk2r62" path="res://birdman.tscn" id="4_nrr74"]
+[ext_resource type="Script" path="res://Timer.gd" id="8_rskdv"]
+[ext_resource type="Script" path="res://Score.gd" id="9_fllb5"]
+[ext_resource type="Script" path="res://HighScore.gd" id="10_cmj5i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjww0"]
+size = Vector2(4251, 101)
+
+[node name="reloadables" type="Node2D"]
+
+[node name="MainFloor" type="StaticBody2D" parent="."]
+position = Vector2(2, 70)
+script = ExtResource("1_geqdi")
+
+[node name="Sprite2D" type="Sprite2D" parent="MainFloor"]
+position = Vector2(563.525, 297)
+scale = Vector2(-3.47496, 1.96194)
+texture = ExtResource("2_cp23e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainFloor"]
+position = Vector2(403.5, 524.5)
+shape = SubResource("RectangleShape2D_vjww0")
+
+[node name="FakeFloor" type="StaticBody2D" parent="."]
+position = Vector2(1147, 70)
+script = ExtResource("3_6wxl6")
+
+[node name="Sprite2D" type="Sprite2D" parent="FakeFloor"]
+position = Vector2(572.45, 297)
+scale = Vector2(-3.50431, 1.96194)
+texture = ExtResource("2_cp23e")
+
+[node name="Birdman" parent="." instance=ExtResource("4_nrr74")]
+z_index = 5
+position = Vector2(550, 304)
+
+[node name="HighScore" type="RichTextLabel" parent="."]
+modulate = Color(0.117647, 0, 0.447059, 1)
+z_index = 9
+offset_left = 6.0
+offset_top = 145.0
+offset_right = 278.0
+offset_bottom = 289.0
+theme_override_font_sizes/normal_font_size = 100
+text = "0"
+script = ExtResource("10_cmj5i")
+
+[node name="Score" type="RichTextLabel" parent="."]
+modulate = Color(0.117647, 0, 0.447059, 1)
+z_index = 9
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 278.0
+offset_bottom = 154.0
+theme_override_font_sizes/normal_font_size = 100
+text = "0"
+script = ExtResource("9_fllb5")
+
+[node name="ScoreTip" type="RichTextLabel" parent="."]
+modulate = Color(0.117647, 0, 0.447059, 1)
+z_index = 9
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 279.0
+offset_bottom = 150.0
+theme_override_font_sizes/normal_font_size = 25
+text = "Latest:"
+
+[node name="HighScoreTip" type="RichTextLabel" parent="."]
+modulate = Color(0.117647, 0, 0.447059, 1)
+z_index = 9
+offset_left = 8.0
+offset_top = 141.0
+offset_right = 280.0
+offset_bottom = 285.0
+theme_override_font_sizes/normal_font_size = 25
+text = "Highest:"
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+script = ExtResource("8_rskdv")
+
+[connection signal="child_entered_tree" from="." to="MainFloor" method="_on_reloadables_child_entered_tree"]
+[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
